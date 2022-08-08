@@ -1,0 +1,6 @@
+version: '3'
+services:
+  linux01:
+    image: chenchongbiao/ubuntu20:v1
+    container_name: linux01
+    hostname: linux01
