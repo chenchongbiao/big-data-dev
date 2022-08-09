@@ -13,6 +13,10 @@
 
 > 系统ubuntu20.04，安装ssh服务，配置Java环境。
 
+- chenchongbiao/hadoop:v1
+
+> 在ubuntu20:v1镜像上添加了hadoop相关环境。
+
 #### 3 功能介绍
 
 文件介绍
@@ -25,4 +29,7 @@
 - pseudo文件夹，存放伪分布模式下的配置文件。
 - cluster文件夹，存放分布模式下的配置文件。
 
-##### 3.1 ubuntu目录
+#### 4 搭建过程
+
+- [hadoop环境搭建]()(https://blog.csdn.net/weixin_45439281/article/details/126230105)
+-
