@@ -1,0 +1,48 @@
+version: '3'
+services:
+  linux01:
+    image: chenchongbiao/hadoop:v1
+    working_dir: /usr/local/hadoop
+    container_name: linux01
+    hostname: linux01
+    volumes:
+      - ./cluster/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ./cluster/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ./cluster/conf/yarn-site.xml:/usr/local/hadoop/etc/hadoop/yarn-site.xml
+      - ./cluster/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ./cluster/conf/workers:/usr/local/hadoop/etc/hadoop/workers
+      - ./sbin:/usr/local/hadoop/sbin
+    ports:
+      - "9000:9000"
+      - "9870:9870"
+    restart: always
+  linux02:
+    image: chenchongbiao/hadoop:v1
+    working_dir: /usr/local/hadoop
+    container_name: linux02
+    hostname: linux02
+    volumes:
+      - ./cluster/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ./cluster/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ./cluster/conf/yarn-site.xml:/usr/local/hadoop/etc/hadoop/yarn-site.xml
+      - ./cluster/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ./cluster/conf/workers:/usr/local/hadoop/etc/hadoop/workers
+      - ./sbin:/usr/local/hadoop/sbin
+    restart: always
+    links:
+      - linux01
+  linux03:
+    image: chenchongbiao/hadoop:v1
+    working_dir: /usr/local/hadoop
+    container_name: linux03
+    hostname: linux03
+    volumes:
+      - ./cluster/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ./cluster/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ./cluster/conf/yarn-site.xml:/usr/local/hadoop/etc/hadoop/yarn-site.xml
+      - ./cluster/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ./cluster/conf/workers:/usr/local/hadoop/etc/hadoop/workers
+      - ./sbin:/usr/local/hadoop/sbin
+    restart: always
+    links:
+      - linux01

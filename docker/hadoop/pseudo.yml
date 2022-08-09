@@ -1,0 +1,15 @@
+version: '3'
+services:
+  linux01:
+    image: chenchongbiao/hadoop:v1
+    working_dir: /usr/local/hadoop
+    container_name: linux01
+    hostname: linux01
+    volumes:
+      - ./pseudo/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ./pseudo/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ./pseudo/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ./sbin:/usr/local/hadoop/sbin
+    ports:
+      - "9870:9870"
+    restart: always
