@@ -31,5 +31,4 @@
 
 #### 4 搭建过程
 
-- [hadoop环境搭建]()(https://blog.csdn.net/weixin_45439281/article/details/126230105)
--
+- [hadoop环境搭建](https://blog.csdn.net/weixin_45439281/article/details/126230105)
