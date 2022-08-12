@@ -1,0 +1,57 @@
+version: '3'
+services:
+  linux01:
+    image: chenchongbiao/hbase:v1
+    working_dir: /usr/local/hbase
+    container_name: linux01
+    hostname: linux01
+    volumes:
+      - ../hadoop/cluster/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ../hadoop/cluster/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ../hadoop/cluster/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ../hadoop/cluster/conf/workers:/usr/local/hadoop/etc/hadoop/workers
+      - ../hadoop/sbin:/usr/local/hadoop/sbin
+      - ./cluster/conf/hbase-env.sh:/usr/local/hbase/conf/hbase-env.sh
+      - ./cluster/conf/hbase-site.xml:/usr/local/hbase/conf/hbase-site.xml
+      - ./cluster/conf/regionservers:/usr/local/hbase/conf/regionservers
+      - ./bin/start-hbase.sh:/usr/local/hbase/bin/start-hbase.sh
+    ports:
+      - "9870:9870"
+      - "16010:16010"
+    restart: always
+  linux02:
+    image: chenchongbiao/hbase:v1
+    working_dir: /usr/local/hbase
+    container_name: linux02
+    hostname: linux02
+    volumes:
+      - ../hadoop/cluster/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ../hadoop/cluster/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ../hadoop/cluster/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ../hadoop/cluster/conf/workers:/usr/local/hadoop/etc/hadoop/workers
+      - ../hadoop/sbin:/usr/local/hadoop/sbin
+      - ./cluster/conf/hbase-env.sh:/usr/local/hbase/conf/hbase-env.sh
+      - ./cluster/conf/hbase-site.xml:/usr/local/hbase/conf/hbase-site.xml
+      - ./cluster/conf/regionservers:/usr/local/hbase/conf/regionservers
+      - ./bin/start-hbase.sh:/usr/local/hbase/bin/start-hbase.sh
+    restart: always
+    links:
+      - linux01
+  linux03:
+    image: chenchongbiao/hbase:v1
+    working_dir: /usr/local/hbase
+    container_name: linux03
+    hostname: linux03
+    volumes:
+      - ../hadoop/cluster/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ../hadoop/cluster/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ../hadoop/cluster/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ../hadoop/cluster/conf/workers:/usr/local/hadoop/etc/hadoop/workers
+      - ../hadoop/sbin:/usr/local/hadoop/sbin
+      - ./cluster/conf/hbase-env.sh:/usr/local/hbase/conf/hbase-env.sh
+      - ./cluster/conf/hbase-site.xml:/usr/local/hbase/conf/hbase-site.xml
+      - ./cluster/conf/regionservers:/usr/local/hbase/conf/regionservers
+      - ./bin/start-hbase.sh:/usr/local/hbase/bin/start-hbase.sh
+    restart: always
+    links:
+      - linux01

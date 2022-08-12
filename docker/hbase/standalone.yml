@@ -1,0 +1,12 @@
+version: '3'
+services:
+  linux01:
+    image: chenchongbiao/hbase:v1
+    working_dir: /usr/local/hbase
+    container_name: linux01
+    hostname: linux01
+    volumes:
+      - ./standalone/conf/hbase-env.sh:/usr/local/hbase/conf/hbase-env.sh
+      - ./standalone/conf/hbase-site.xml:/usr/local/hbase/conf/hbase-site.xml
+      - ./bin/start-hbase.sh:/usr/local/hbase/bin/start-hbase.sh
+    restart: always

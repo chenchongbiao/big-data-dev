@@ -1,0 +1,20 @@
+version: '3'
+services:
+  linux01:
+    image: chenchongbiao/hbase:v1
+    working_dir: /usr/local/hbase
+    container_name: linux01
+    hostname: linux01
+    volumes:
+      - ../hadoop/pseudo/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ../hadoop/pseudo/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ../hadoop/pseudo/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ../hadoop/sbin:/usr/local/hadoop/sbin
+      - ./pseudo/conf/hbase-env.sh:/usr/local/hbase/conf/hbase-env.sh
+      - ./pseudo/conf/hbase-site.xml:/usr/local/hbase/conf/hbase-site.xml
+      - ./pseudo/conf/regionservers:/usr/local/hbase/conf/regionservers
+      - ./bin/start-hbase.sh:/usr/local/hbase/bin/start-hbase.sh
+    ports:
+      - "9870:9870"
+      - "16010:16010"
+    restart: always
