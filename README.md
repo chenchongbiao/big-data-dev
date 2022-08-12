@@ -15,7 +15,11 @@
 
 - chenchongbiao/hadoop:v1
 
-> 在ubuntu20:v1镜像上添加了hadoop相关环境。
+> 在ubuntu20:v1镜像上添加了hadoop3.3.1相关环境。
+
+- chenchongbiao/hbase:v1
+
+> 在hadoop:v1镜像添加了hbase1.4.14相关环境。
 
 #### 3 功能介绍
 
@@ -31,4 +35,5 @@
 
 #### 4 搭建过程
 
-- [hadoop环境搭建](https://blog.csdn.net/weixin_45439281/article/details/126230105)
+- [Hadoop环境搭建](https://blog.csdn.net/weixin_45439281/article/details/126230105)
+- [Hbase环境搭建](https://blog.csdn.net/weixin_45439281/article/details/126264975)
