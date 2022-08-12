@@ -31,7 +31,7 @@ RUN mkdir /var/run/sshd
 # 设置之后ssh也可以使用java变量
 ENV JAVA_HOME /usr/local/jdk1.8
 ENV PATH $JAVA_HOME/bin:$PATH
-ENV JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
+ENV LC_ALL C.UTF-8
 COPY --from=installer ["/usr/local/jdk1.8", "/usr/local/jdk1.8"]
 
 EXPOSE 22
