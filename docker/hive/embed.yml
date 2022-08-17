@@ -1,0 +1,15 @@
+version: '3'
+services:
+  linux01:
+    image: chenchongbiao/hive:v1
+    working_dir: /usr/local/hive
+    container_name: linux01
+    hostname: linux01
+    volumes:
+      - ../hadoop/pseudo/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ../hadoop/pseudo/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ../hadoop/pseudo/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ../hadoop/sbin:/usr/local/hadoop/sbin
+      - ./embed/conf/hive-site.xml:/usr/local/hive/conf/hive-site.xml
+      - ./embed/conf/hive-env.sh:/usr/local/hive/conf/hive-env.sh
+    restart: always

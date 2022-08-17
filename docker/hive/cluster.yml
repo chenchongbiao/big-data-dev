@@ -1,0 +1,81 @@
+version: '3'
+services:
+  linux01:
+    image: chenchongbiao/hive:v1
+    working_dir: /usr/local/hive
+    container_name: linux01
+    hostname: linux01
+    volumes:
+      - ../hadoop/cluster/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ../hadoop/cluster/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ../hadoop/cluster/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ../hadoop/cluster/conf/workers:/usr/local/hadoop/etc/hadoop/workers
+      - ../hadoop/sbin:/usr/local/hadoop/sbin
+      - ./cluster/conf/hive-site.xml:/usr/local/hive/conf/hive-site.xml
+      - ./cluster/conf/hive-env.sh:/usr/local/hive/conf/hive-env.sh
+      - ./mysql-connector-java-8.0.26.jar:/usr/local/hive/lib/mysql-connector-java-8.0.26.jar
+    restart: always
+    ports:
+      - "9870:9870"
+    links:
+      - hive_mysql
+    depends_on:
+      - hive_mysql
+  linux02:
+    image: chenchongbiao/hive:v1
+    working_dir: /usr/local/hive
+    container_name: linux02
+    hostname: linux02
+    volumes:
+      - ../hadoop/cluster/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ../hadoop/cluster/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ../hadoop/cluster/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ../hadoop/cluster/conf/workers:/usr/local/hadoop/etc/hadoop/workers
+      - ../hadoop/sbin:/usr/local/hadoop/sbin
+      - ./cluster/conf/hive-site.xml:/usr/local/hive/conf/hive-site.xml
+      - ./cluster/conf/hive-env.sh:/usr/local/hive/conf/hive-env.sh
+      - ./mysql-connector-java-8.0.26.jar:/usr/local/hive/lib/mysql-connector-java-8.0.26.jar
+    restart: always
+    links:
+      - hive_mysql
+      - linux01
+    depends_on:
+      - hive_mysql
+  linux03:
+    image: chenchongbiao/hive:v1
+    working_dir: /usr/local/hive
+    container_name: linux03
+    hostname: linux03
+    volumes:
+      - ../hadoop/cluster/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ../hadoop/cluster/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ../hadoop/cluster/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ../hadoop/cluster/conf/workers:/usr/local/hadoop/etc/hadoop/workers
+      - ../hadoop/sbin:/usr/local/hadoop/sbin
+      - ./cluster/conf/hive-site.xml:/usr/local/hive/conf/hive-site.xml
+      - ./cluster/conf/hive-env.sh:/usr/local/hive/conf/hive-env.sh
+      - ./mysql-connector-java-8.0.26.jar:/usr/local/hive/lib/mysql-connector-java-8.0.26.jar
+    restart: always
+    links:
+      - hive_mysql
+      - linux01
+    depends_on:
+      - hive_mysql
+  hive_mysql:
+    image: mysql:8.0
+    restart: always
+    container_name: hive_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+    volumes:
+      - ./cluster/mysql/data:/var/lib/mysql
+      - ./cluster/mysql/init/:/docker-entrypoint-initdb.d/
+      - ./cluster/mysql/conf:/etc/mysql/conf.d 
+    ports:
+      - "3306:3306"

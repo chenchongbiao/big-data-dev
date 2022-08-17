@@ -1,0 +1,40 @@
+version: '3'
+services:
+  linux01:
+    image: chenchongbiao/hive:v1
+    working_dir: /usr/local/hive
+    container_name: linux01
+    hostname: linux01
+    volumes:
+      - ../hadoop/pseudo/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ../hadoop/pseudo/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ../hadoop/pseudo/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ../hadoop/sbin:/usr/local/hadoop/sbin
+      - ./pseudo/conf/hive-site.xml:/usr/local/hive/conf/hive-site.xml
+      - ./pseudo/conf/hive-env.sh:/usr/local/hive/conf/hive-env.sh
+      - ./mysql-connector-java-8.0.26.jar:/usr/local/hive/lib/mysql-connector-java-8.0.26.jar
+    restart: always
+    ports:
+      - "9870:9870"
+    links:
+      - hive_mysql
+    depends_on:
+      - hive_mysql
+  hive_mysql:
+    image: mysql:8.0
+    restart: always
+    container_name: hive_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+    volumes:
+      - ./pseudo/mysql/data:/var/lib/mysql
+      - ./pseudo/mysql/init/:/docker-entrypoint-initdb.d/
+      - ./pseudo/mysql/conf:/etc/mysql/conf.d 
+    ports:
+      - "3306:3306"
