@@ -1,0 +1,20 @@
+version: '3'
+services:
+  linux01:
+    image: chenchongbiao/spark:v1
+    working_dir: /usr/local/spark
+    container_name: linux01
+    hostname: linux01
+    volumes:
+      - ../hadoop/pseudo/conf/core-site.xml:/usr/local/hadoop/etc/hadoop/core-site.xml
+      - ../hadoop/pseudo/conf/hdfs-site.xml:/usr/local/hadoop/etc/hadoop/hdfs-site.xml
+      - ../hadoop/pseudo/conf/hadoop-env.sh:/usr/local/hadoop/etc/hadoop/hadoop-env.sh
+      - ../hadoop/sbin:/usr/local/hadoop/sbin
+      - ./pseudo/conf:/usr/local/spark/conf
+      - ./maven/conf/settings.xml:/usr/local/maven/conf/settings.xml
+    ports:
+      - "4040:4040"
+      - "8080:8080"
+      - "9870:9870"
+      - "16010:16010"
+    restart: always
