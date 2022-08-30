@@ -1,0 +1,11 @@
+version: '3'
+services:
+  linux01:
+    image: chenchongbiao/spark:v1
+    working_dir: /usr/local/spark
+    container_name: linux01
+    hostname: linux01
+    volumes:
+      - ./standalone/conf/spark-env.sh:/usr/local/spark/conf/spark-env.sh
+      - ./maven/conf/settings.xml:/usr/local/maven/conf/settings.xml
+    restart: always
